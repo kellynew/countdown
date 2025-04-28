@@ -1,8 +1,16 @@
-import { format, differenceInDays } from 'date-fns'
+import { differenceInDays, isAfter, format } from 'date-fns'
 
-// 计算剩余天数
-export function getRemainingDays(targetDate: Date): number {
-  return differenceInDays(targetDate, new Date())
+// 计算剩余天数（更精确的版本）
+export function getRemainingDays(targetDate: Date): string {
+  const now = new Date()
+  
+  if (isAfter(now, targetDate)) {
+    return '已到达'
+  }
+  
+  const days = differenceInDays(targetDate, now)
+  
+  return `${days}天后`
 }
 
 // 格式化日期

@@ -16,8 +16,7 @@ export default async function CountdownPage({
   if (!countdown) {
     notFound()
   }
-
-  const remainingDays = getRemainingDays(countdown.targetDate)
+  
   const textColor = getContrastColor(
     countdown.backgroundColor || countdown.backgroundImage || ''
   )
@@ -44,7 +43,7 @@ export default async function CountdownPage({
         <h1 className="text-4xl font-bold mb-4">{countdown.title}</h1>
         
         <div className="text-6xl font-bold mb-8">
-          {remainingDays > 0 ? `${remainingDays}天` : '已到达'}
+          {getRemainingDays(countdown.targetDate)}
         </div>
         
         <p className="text-xl mb-2">
