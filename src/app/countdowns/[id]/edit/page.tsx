@@ -1,10 +1,7 @@
-'use client'
-
 import { notFound } from 'next/navigation'
-import { useRouter } from 'next/navigation'
 import { prisma } from '@/lib/db'
-import CountdownForm from '@/components/CountdownForm'
 import { formatDate } from '@/lib/utils'
+import EditCountdownForm from './EditCountdownForm'
 
 export default async function EditCountdownPage({
   params,
@@ -19,38 +16,10 @@ export default async function EditCountdownPage({
     notFound()
   }
 
-  const router = useRouter()
-
-  const handleSubmit = async (data: {
-    title: string
-    targetDate: string
-    backgroundColor?: string
-    backgroundImage?: string
-  }) => {
-    try {
-      const response = await fetch('/api/countdowns', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          id: countdown.id,
-          ...data,
-        }),
-      })
-      
-      if (response.ok) {
-        router.push(`/countdowns/${countdown.id}`)
-      }
-    } catch (error) {
-      console.error('Error updating countdown:', error)
-    }
-  }
-
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-2xl font-bold mb-6">编辑倒数日</h1>
-      <CountdownForm
+      <EditCountdownForm
         initialData={{
           id: countdown.id,
           title: countdown.title,
@@ -58,7 +27,6 @@ export default async function EditCountdownPage({
           backgroundColor: countdown.backgroundColor || undefined,
           backgroundImage: countdown.backgroundImage || undefined,
         }}
-        onSubmit={handleSubmit}
       />
     </div>
   )
