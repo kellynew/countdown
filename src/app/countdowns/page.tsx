@@ -2,6 +2,8 @@ import Link from 'next/link'
 import { CountdownCard } from '@/components/CountdownCard'
 import { prisma } from '@/lib/db'
 
+export const dynamic = 'force-dynamic'
+
 export default async function CountdownsPage() {
   const countdowns = await prisma.countdown.findMany({
     orderBy: {
