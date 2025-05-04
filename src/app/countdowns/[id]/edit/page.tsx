@@ -3,15 +3,16 @@ import { prisma } from '@/lib/db'
 import { formatDate } from '@/lib/utils'
 import EditCountdownForm from './EditCountdownForm'
 
-export default async function EditCountdownPage({
-  params,
-}: {
-  params: { id: string }
-}) {
-  const { id } = await params
+interface Props {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ sortOrder: string }>;
+}
+
+export default async function EditCountdownPage(props: Props) {
+  const params = await props.params
 
   const countdown = await prisma.countdown.findUnique({
-    where: { id: parseInt(id) },
+    where: { id: parseInt(params.id) },
   })
 
   if (!countdown) {
