@@ -10,7 +10,7 @@ export function getRemainingDays(targetDate: Date): string {
   
   const days = differenceInDays(targetDate, now)
   
-  return `${days}天后`
+  return `${days+1}天后`
 }
 
 // 格式化日期
